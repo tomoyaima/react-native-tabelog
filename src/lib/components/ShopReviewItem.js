@@ -1,28 +1,47 @@
 import React, {useEffect, useState} from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Image,
+  Text,
+  Dimensions,
+  TouchableOpacity,
+} from "react-native";
 
+const { width } = Dimensions.get("window");
+const CONTAINER_WIDTH = width / 2;
+const PADDING = 16;
+const IMAGE_WIDTH = CONTAINER_WIDTH - PADDING * 2;
 
 export const ShopReviewItem =({shop})=>{
     const {name,place,imageUrl,score}=shop;
     return <View style= {styles.container}>
-        <Image source={{uri:imageUrl,}} style={styles.Image}/>
-        <Text>{name}</Text>
-        <Text>{place}</Text>
-        <Text>{score}</Text>
-        <Text>{imageUrl}</Text>
+        <Image source={{uri:imageUrl,}} style={styles.image}/>
+        <Text style={styles.nameText}>{name}</Text>
+        <Text style={styles.placeText}>{place}</Text>
+        <Text >{score}</Text>
+        
     </View>
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    width: CONTAINER_WIDTH,
+    padding: 16,
   },
-  Image:{
-      width:100,
-      height:100,
-
+  image: {
+    width: IMAGE_WIDTH,
+    height: IMAGE_WIDTH * 0.7,
+  },
+  nameText: {
+    fontSize: 16,
+    color: "#000",
+    marginTop: 8,
+    fontWeight: "bold",
+  },
+  placeText: {
+    fontSize: 12,
+    color: "#888",
+    marginVertical: 8,
   },
 });
