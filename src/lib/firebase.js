@@ -1,4 +1,4 @@
-import * as firebase from 'firebase';
+import firebase from 'firebase';
 import Constants from "expo-constants";
 // Optionally import the services that you want to use
 import "firebase/auth";
