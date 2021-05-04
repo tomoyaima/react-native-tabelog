@@ -1,10 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {useEffect, useState} from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
 import firebase from 'firebase';
 import "firebase/auth";
 import "firebase/firestore";
 import {getShops} from "./src/lib/firebase"
+import {ShopReviewItem} from "./src/lib/components/ShopReviewItem.js"
+
 
 export default function App() {
   const [shops, setShops] = useState([]);
@@ -16,20 +18,14 @@ export default function App() {
   const getFirebaseItems= async()=>{
     const shops = await getShops();
     setShops(shops); 
+
   };
 
   const shopItems = shops.map((shop,index)=> (
-    <View style={{margi:10}} key={index.toString()}>
-      <Text>{shop.name}</Text>
-      <Text>{shop.place}</Text>
-    </View>
-  
+    <ShopReviewItem shop={shop} key={index.toString()}/> 
   ));
-  return (
-    <View style={styles.container}>
-      {shopItems}
-    </View>
-  );
+
+  return <View style={styles.container}>{shopItems}</View>;
 }
 
 const styles = StyleSheet.create({
