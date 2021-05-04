@@ -19,17 +19,6 @@
     "ios": {
       "supportsTablet": true
     },
-    "extra":{
-      "firebase":{
-        "apiKey": "AIzaSyDZrXNzHoWnL6G_TuKmbNTxq5y4iyoHzQs",
-        "authDomain": "react-learning-e38ca.firebaseapp.com",
-        "projectId": "react-learning-e38ca",
-        "storageBucket": "react-learning-e38ca.appspot.com",
-        "messagingSenderId": "677583241587",
-        "appId": "1:677583241587:web:e1a34cea5948be4416c506",
-        "measurementId": "G-CLEJKX17FQ"
-      }
-    },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
