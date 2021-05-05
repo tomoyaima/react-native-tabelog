@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {useEffect, useState} from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image,FlatList, SafeAreaView } from 'react-native';
 import firebase from 'firebase';
 import "firebase/auth";
 import "firebase/firestore";
@@ -21,11 +21,22 @@ export default function App() {
 
   };
 
-  const shopItems = shops.map((shop,index)=> (
-    <ShopReviewItem shop={shop} key={index.toString()}/> 
-  ));
+  // const shopItems = shops.map((shop,index)=> (
+  //   <ShopReviewItem shop={shop} key={index.toString()}/> 
+  // ));
 
-  return <View style={styles.container}>{shopItems}</View>;
+  return (
+  <SafeAreaView style={styles.container}>
+    <FlatList 
+      data={shops}
+      renderItem={({item}) => (
+        <ShopReviewItem shop={item}/>
+      )}
+      keyExtractor={(item,index) => index.toString()}
+      numColumns={2}
+    />
+  </SafeAreaView>
+  );
 }
 
 const styles = StyleSheet.create({

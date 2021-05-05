@@ -7,7 +7,7 @@ import {
   Dimensions,
   TouchableOpacity,
 } from "react-native";
-
+import {Stars} from './Stars'
 const { width } = Dimensions.get("window");
 const CONTAINER_WIDTH = width / 2;
 const PADDING = 16;
@@ -19,7 +19,7 @@ export const ShopReviewItem =({shop})=>{
         <Image source={{uri:imageUrl,}} style={styles.image}/>
         <Text style={styles.nameText}>{name}</Text>
         <Text style={styles.placeText}>{place}</Text>
-        <Text >{score}</Text>
+        <Stars score={score}/>
         
     </View>
 }
