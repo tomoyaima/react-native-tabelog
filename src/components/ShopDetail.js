@@ -9,13 +9,13 @@ import {
 } from "react-native";
 import {Stars} from './Stars'
 const { width } = Dimensions.get("window");
-const CONTAINER_WIDTH = width / 2;
+const CONTAINER_WIDTH = width;
 const PADDING = 16;
 const IMAGE_WIDTH = CONTAINER_WIDTH - PADDING * 2;
 
-export const ShopReviewItem =({shop})=>{
+export const ShopDetail =({shop, onPress})=>{
     const {name,place,imageUrl,score}=shop;
-    return <View style= {styles.container}>
+    return <View style= {styles.container} onPress={onPress}>
         <Image source={{uri:imageUrl,}} style={styles.image}/>
         <Text style={styles.nameText}>{name}</Text>
         <Text style={styles.placeText}>{place}</Text>
