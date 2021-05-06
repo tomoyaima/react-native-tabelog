@@ -23,3 +23,6 @@ expo install react-native-gesture-handler react-native-reanimated react-native-s
 
 npm install @react-navigation/bottom-tabs
 npm install @react-navigation/stack
+
+画像を扱う
+expo install expo-image-picker
