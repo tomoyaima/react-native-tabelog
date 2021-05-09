@@ -1,6 +1,6 @@
 import React, {useEffect, useState,useContext} from 'react';
 import { StyleSheet, Text, View, Image,FlatList, SafeAreaView } from 'react-native';
-import {getShops , updateUser} from "../lib/firebase"
+import {getShops , updateUser,Logout} from "../lib/firebase"
 import {ShopReviewItem} from "../components/ShopReviewItem"
 import {Form} from'../components/Form'
 import {Button} from '../components/Button'
@@ -31,11 +31,22 @@ export const UserScreen =({navigation}) =>{
     setUser({...user,name,updatedAt});
     setLoading(false);
   };
+  const onLogout = async()=>{
+    setLoading(true);
+    await Logout();
+    setUser(undefined);
+    setName(undefined);
+    console.log(user);
+    setLoading(false);
+    console.log(false)
+  };
 
   return (
   <SafeAreaView style={styles.container}>
    <Form value={name} onChangeText={(text)=>{setName(text)}} label="名前"/>
+   <Text>{user.email}</Text>
    <Button onPress={onSubmit} text ="保存する"/>
+   <Button onPress={onLogout} text ="ログアウト"/>
    <Loading visible ={loading}/>
   </SafeAreaView>
   );

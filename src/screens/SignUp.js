@@ -8,10 +8,12 @@ import {
 } from "react-native";
 import {signin} from "../lib/firebase"
 import {UserContext} from "../contexts/userContext"
+import {Button} from "../components/Button";
 
-export const AuthScreen = () => {
+export const SignUp = () => {
   const {setUser} = useContext(UserContext);
   const [loading,setLoading]=useState(false);
+
   useEffect(()=>{
     const fetchUser = async()=>{
       const user = await signin();
@@ -19,21 +21,19 @@ export const AuthScreen = () => {
       setUser(user);
     };
     fetchUser();
-  },[]);
+},[]);
+    const Login =()=>{
+        setLoading(true);
+
+    }
   return (
     <SafeAreaView style={styles.container}>
-      {!loading?
-      (
+    
         <View>
           <ActivityIndicator size="large" />
           <Text style={styles.text}>ログイン中...</Text>
         </View>
-
-      ):(
-        <View>
-          <Text style={styles.text}>ログイン中...</Text>
-        </View>
-      )}
+      
     </SafeAreaView>
   );
 };

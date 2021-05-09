@@ -12,10 +12,11 @@ export const IconButton=({
   onPress,
   name,
   color = "#000",
+  size,
 }) => {
   return (
     <TouchableOpacity onPress={onPress} style={styles.container}>
-      <Feather name={name} color={color} size={32} />
+      <Feather name={name} color={color} size={size} />
     </TouchableOpacity>
   );
 };

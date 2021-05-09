@@ -12,7 +12,7 @@ npm start # you can also use: expo start
 expo install firebase
 
 Firestore リージョン Asia northeast1
-
+firebaseのidをapp
 expo install expo-constants
 
 React Navigation

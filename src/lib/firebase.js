@@ -1,22 +1,25 @@
 import firebase from 'firebase';
 import Constants from "expo-constants";
 import "firebase/auth";
+import "firebase/storage";
 import {initialUser} from "../type/user"
 
 
 // Initialize Firebase
 export const signin = async() => {
-
-    const userCredential = await firebase.auth().signInAnonymously();
-    const {uid} =  userCredential.user;
-    console.log(uid);
+    var provider = new firebase.auth.GoogleAuthProvider();
+    const userCredential = await firebase.auth().signInWithRedirect(provider);
+    const {uid,displayName,email} =  userCredential.user;
     const userDoc = await firebase.firestore().collection("users").doc(uid).get();
-    console.log(userDoc);
-    if(!userDoc.exist){
+    
+    if(!userDoc.exists){
+        
+        initialUser.email = email;
+        initialUser.name= displayName;
         await firebase.firestore().collection("users").doc(uid).set(initialUser);
         return {
             ...initialUser,
-            id:uid
+            id:uid,
         };
     }else{
         return{
@@ -25,6 +28,19 @@ export const signin = async() => {
         }
     };
 };
+
+// import Firebase from "./Firebase";
+export const Logout = () => {
+    
+    firebase.auth().signOut().then(()=>{
+    console.log("ログアウトしました");
+    
+    })
+    .catch( (error)=>{
+    console.log(`ログアウト時にエラーが発生しました (${error})`);
+    });
+
+}
 
 if(!firebase.apps.length){
     firebase.initializeApp(Constants.manifest.extra.firebase);
@@ -41,9 +57,33 @@ export const updateUser= async(userId,params)=>{
 };
 
 
-export const addReview= async(shopId, review)=>{
-    await firebase.firestore().collection("shops").doc(shopId).collection("reviews").add(review);
+export const CreateReviewRef= async(shopId)=>{
+    return await firebase.firestore().collection("shops").doc(shopId).collection("reviews").doc();
 };
 
 
+export const uploadImage = async (uri, path) => {
+    // uriをblobに変換
+    const localUri = await fetch(uri);
+    const blob = await localUri.blob();
+    // storegaにアップロード
+    const ref = firebase.storage().ref().child(path);
+    
+
+    let downloadUrl = "";
+    try {
+      await ref.put(blob);
+      downloadUrl = await ref.getDownloadURL();
+    } catch (err) {
+      console.log(err);
+    }
+    return downloadUrl;
+  };
+
+  export const getReviews= async(shopId)=>{
+      const reviewDocs = await firebase.firestore().collection("shops").doc(shopId).collection("reviews").orderBy("createdAt","desc").get();
+      return reviewDocs.docs.map(
+          (doc) => ({...doc.data(), id: doc.id})
+      );
+  }
 export default firebase;
